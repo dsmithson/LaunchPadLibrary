@@ -1,0 +1,7 @@
+W:\KnightwareGit\LaunchPadLibrary\Release\Win32\CSharpConsoleApp.exe
+W:\KnightwareGit\LaunchPadLibrary\Release\Win32\CSharpConsoleApp.pdb
+W:\KnightwareGit\LaunchPadLibrary\src\CSharpConsoleApp\obj\x86\Release\CSharpConsoleApp.csprojResolveAssemblyReference.cache
+W:\KnightwareGit\LaunchPadLibrary\src\CSharpConsoleApp\obj\x86\Release\CSharpConsoleApp.exe
+W:\KnightwareGit\LaunchPadLibrary\src\CSharpConsoleApp\obj\x86\Release\CSharpConsoleApp.pdb
+W:\KnightwareGit\LaunchPadLibrary\bin\Release\Win32\CSharpConsoleApp.exe
+W:\KnightwareGit\LaunchPadLibrary\bin\Release\Win32\CSharpConsoleApp.pdb

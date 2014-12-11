@@ -1,0 +1,4 @@
+W:\KnightwareGit\LaunchPadLibrary\bin\Debug\x86\LaunchPadDotNetLibrary.dll
+W:\KnightwareGit\LaunchPadLibrary\bin\Debug\x86\LaunchPadDotNetLibrary.pdb
+W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadDotNetLibrary\obj\x86\Debug\LaunchPadDotNetLibrary.dll
+W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadDotNetLibrary\obj\x86\Debug\LaunchPadDotNetLibrary.pdb

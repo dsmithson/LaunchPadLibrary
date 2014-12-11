@@ -1,0 +1,20 @@
+﻿Build started 12/10/2014 10:30:42 PM.
+     1>Project "W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadControlLibrary\LaunchPadControlLibrary.vcxproj" on node 2 (Rebuild target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IW:\KnightwareGit\LaunchPadLibrary\src\RtMidi\ /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LAUNCHPADCONTROLLIBRARY_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\LaunchPadControlLibrary.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IW:\KnightwareGit\LaunchPadLibrary\src\RtMidi\ /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LAUNCHPADCONTROLLIBRARY_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt dllmain.cpp
+         dllmain.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IW:\KnightwareGit\LaunchPadLibrary\src\RtMidi\ /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LAUNCHPADCONTROLLIBRARY_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\LaunchPadControlLibrary.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt LaunchPad.cpp
+         LaunchPad.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\Lib.exe /OUT:"..\..\bin\Debug\x64\LaunchPadControlLibrary.lib" RtMidi.lib /LIBPATH:..\..\bin\Debug\x64\ /NOLOGO /MACHINE:X64 x64\Debug\dllmain.obj
+         x64\Debug\LaunchPad.obj
+         x64\Debug\stdafx.obj
+         LaunchPadControlLibrary.vcxproj -> W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadControlLibrary\..\..\bin\Debug\x64\LaunchPadControlLibrary.lib
+     1>Done Building Project "W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadControlLibrary\LaunchPadControlLibrary.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.40

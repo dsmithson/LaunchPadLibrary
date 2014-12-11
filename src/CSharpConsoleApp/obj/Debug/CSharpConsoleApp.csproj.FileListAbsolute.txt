@@ -1,0 +1,1 @@
+W:\KnightwareGit\LaunchPadLibrary\src\CSharpConsoleApp\obj\Debug\CSharpConsoleApp.csprojResolveAssemblyReference.cache
