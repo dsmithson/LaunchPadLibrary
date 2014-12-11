@@ -1,4 +1,0 @@
-W:\KnightwareGit\LaunchPadLibrary\bin\Release\x64\LaunchPadDotNetLibrary.dll
-W:\KnightwareGit\LaunchPadLibrary\bin\Release\x64\LaunchPadDotNetLibrary.pdb
-W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadDotNetLibrary\obj\x64\Release\LaunchPadDotNetLibrary.dll
-W:\KnightwareGit\LaunchPadLibrary\src\LaunchPadDotNetLibrary\obj\x64\Release\LaunchPadDotNetLibrary.pdb
