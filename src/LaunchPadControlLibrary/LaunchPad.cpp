@@ -12,12 +12,13 @@ LaunchPad::~LaunchPad()
 	Shutdown();
 }
 
-bool LaunchPad::Startup(LaunchPadButtonPressCallback buttonPressCallback)
+bool LaunchPad::Startup(LaunchPadButtonPressCallback buttonPressCallback, void* buttonPressCallbackUserState)
 {
 	Shutdown();
 	isRunning = true;
 
 	this->buttonPressCallback = buttonPressCallback;
+	this->buttonPressCallbackUserState = buttonPressCallbackUserState;
 
 	try
 	{
@@ -76,16 +77,25 @@ bool LaunchPad::Startup(LaunchPadButtonPressCallback buttonPressCallback)
 void LaunchPad::Shutdown()
 {
 	isRunning = false;
-		
+	
 	if (midiIn != nullptr)
 	{
-		midiIn = nullptr;
+		if(midiIn->isPortOpen())
+			midiIn->closePort();
+
+		this->midiIn = nullptr;
 	}
-	
+
 	if (midiOut != nullptr)
 	{
+		if (midiOut->isPortOpen())
+			midiOut->closePort();
+
 		midiOut = nullptr;
 	}
+
+	this->buttonPressCallback = nullptr;
+	this->buttonPressCallbackUserState = nullptr;
 }
 
 //Callback handler for when a LaunchPad button is pressed
@@ -98,7 +108,7 @@ void LaunchPad::OnMidiInput(double deltaTime, vector<unsigned char> *pMessage, v
 		bool isPressed = pMessage->at(2) == 0 ? false : true;
 		auto *sender = static_cast<LaunchPad*>(userData);
 		if (sender->buttonPressCallback != nullptr)
-			sender->buttonPressCallback(sender, keyType, keyId, isPressed);
+			sender->buttonPressCallback(sender, keyType, keyId, isPressed, sender->buttonPressCallbackUserState);
 	}
 }
 
@@ -119,6 +129,18 @@ bool LaunchPad::SetKeyColor(LaunchPadKeyType keyType, unsigned char keyId, Launc
 
 	midiOut->sendMessage(msg.get());
 	return true;
+}
+
+bool LaunchPad::SetKeyColors(vector < tuple<LaunchPadKeyType, unsigned char, LaunchPadLED, LaunchPadLED>>& colors)
+{
+	//TODO:  Look into using double-buffering and setting multiple keys simultaneously on the LaunchPad
+	bool success = true;
+	for (auto entry : colors)
+	{
+		if (!SetKeyColor(get<0>(entry), get<1>(entry), get<2>(entry), get<3>(entry)))
+			success = false;
+	}
+	return success;
 }
 
 

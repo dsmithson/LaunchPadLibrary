@@ -1,38 +1,36 @@
 #pragma once
 #include "stdafx.h"
 
-enum class LaunchPadLED : unsigned char
-{
-	Off = 0,
-	Low = 1,
-	Medium = 2,
-	Bright = 3
-};
+typedef unsigned char LaunchPadLED;
+#define LaunchPadLED_Off 0
+#define LaunchPadLED_Low 1
+#define LaunchPadLED_Medium 2
+#define LaunchPadLED_Bright 3
 
-enum class LaunchPadKeyType : unsigned char
-{
-	MainArea = 144,
-	TopMenu = 176
-};
+typedef unsigned char LaunchPadKeyType;
+#define LaunchPadKeyType_MainArea 144
+#define LaunchPadKeyType_TopMenu 176
 
 class LaunchPad
 {
 
 public:
 
-	typedef function<void(LaunchPad*, LaunchPadKeyType, unsigned char, bool)> LaunchPadButtonPressCallback;
+	typedef function<void(LaunchPad*, LaunchPadKeyType, unsigned char, bool, void*)> LaunchPadButtonPressCallback;
 
 	LaunchPad();
 	~LaunchPad();
 
 	bool GetIsRunning() { return isRunning; }
-	bool Startup(LaunchPadButtonPressCallback buttonPressCallback);
+	bool Startup(LaunchPadButtonPressCallback buttonPressCallback, void* buttonPressCallbackUserState);
 	void Shutdown();
 
 	bool SetKeyColor(LaunchPadKeyType, unsigned char keyId, LaunchPadLED red, LaunchPadLED green);
+	bool SetKeyColors(vector < tuple<LaunchPadKeyType, unsigned char, LaunchPadLED, LaunchPadLED>> &colors);
 
 private:
 	LaunchPadButtonPressCallback buttonPressCallback;
+	void* buttonPressCallbackUserState;
 	
 	shared_ptr<RtMidiIn> midiIn;
 	shared_ptr<RtMidiOut> midiOut;

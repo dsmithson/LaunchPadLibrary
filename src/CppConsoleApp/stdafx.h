@@ -8,6 +8,10 @@
 #include "targetver.h"
 
 #include <stdio.h>
+#include <iomanip>
+#include <iostream>
 #include <tchar.h>
+#include <chrono>
+#include <thread>
 
 #include "LaunchPad.h"
