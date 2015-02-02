@@ -1,0 +1,81 @@
+﻿<Window x:Class="WpfProcessControllerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfProcessControllerApp"
+        Title="MainWindow" Height="700" Width="800" Closing="window_closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Main Control -->
+        <local:KBoardControl x:Name="kBoardControl"
+                             ButtonPressed="kBoardControl_ButtonPressed"
+                             Grid.ColumnSpan="2"
+                             HorizontalAlignment="Center" 
+                             Margin="8"/>
+        
+        <!-- Command Log -->
+        <DockPanel Grid.Row="1"
+                   Margin="4">
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Top">
+                <TextBlock Text="Log Messages" Margin="0,0,8,0"/>
+                <TextBlock>
+                    <Hyperlink Click="btnClearLogs_Clicked">Clear</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <ListBox x:Name="logMessages" Margin="2"/>
+        </DockPanel>
+        
+        <!-- Button Action Configuration -->
+        <GroupBox Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="4"
+                  Padding="8"
+                  Header="Configure Button Actions">
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,0,0,8"
+                           Text="When in Configuration Mode, the button presses select which button is being configured.  When in run mode, presses actually perform the target action."/>
+                
+                <RadioButton x:Name="rbRunMode" GroupName="Mode" Content="Run Mode"/>
+                <RadioButton x:Name="rbConfigMode" GroupName="Mode" Content="Configure Mode" IsChecked="True"/>
+                
+                <Grid x:Name="configGrid" Margin="12,12,0,0">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=rbConfigMode, Path=IsChecked}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <StackPanel>
+                        <TextBlock FontSize="14" FontWeight="Bold" Margin="0,0,0,12">
+                            <Run Text="Currently Editing Key ID "/>
+                            <TextBlock Text="{Binding Path=KeyID, FallbackValue=-1}"/>
+                        </TextBlock>
+                        <TextBlock Text="Program Name"/>
+                        <TextBox HorizontalAlignment="Stretch" Text="{Binding Path=ProgramName, Mode=TwoWay}"/>
+
+                        <TextBlock Margin="0,8,0,0"
+                                   Text="Program Arguments (Optional)"/>
+                        <TextBox HorizontalAlignment="Stretch" Text="{Binding Path=ProgramArguments, Mode=TwoWay}"/>
+                        
+                        <CheckBox Content="Start new instance if already running"
+                                  Margin="0,8,0,0"
+                                  IsChecked="{Binding Path=StartNewInstanceIfAlreadyRunning, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        
+    </Grid>
+</Window>

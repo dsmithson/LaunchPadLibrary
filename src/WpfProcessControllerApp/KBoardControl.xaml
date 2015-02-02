@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="WpfProcessControllerApp.KBoardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfProcessControllerApp"
+             xmlns:interactivity="intera"
+             mc:Ignorable="d"
+             Background="#080808"
+             Height="200" 
+             Width="650"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Top">
+    
+    <UserControl.DataContext>
+        <local:KBoardControlViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        
+        <SolidColorBrush x:Key="ButtonNotPressed" Color="Gray"/>
+        
+        <Style TargetType="{x:Type Ellipse}">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Fill" Value="{StaticResource ButtonNotPressed}"/>
+            <Setter Property="Margin" Value="0,8,4,8"/>
+        </Style>
+        
+        <Style x:Key="KBoardKey" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=KeyID}" Value="-1">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="TopRowKBoardKey" TargetType="{x:Type Button}" BasedOn="{StaticResource KBoardKey}">
+            <Setter Property="Background" Value="Blue"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=LEDValue}" Value="0">
+                    <Setter Property="Background" Value="{StaticResource ButtonNotPressed}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BottomRowKBoardKey" TargetType="{x:Type Button}" BasedOn="{StaticResource KBoardKey}">
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=LEDValue}" Value="0">
+                    <Setter Property="Background" Value="{StaticResource ButtonNotPressed}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Placeholder buttons on left -->
+        <TextBlock Foreground="White" FontStyle="Italic" FontSize="14" Text="Keith McMillen" HorizontalAlignment="Right" Margin="0,0,-12,0"/>
+        <StackPanel Grid.Row="1" 
+                    VerticalAlignment="Top"
+                    Margin="0,-28,4,0">            
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Ellipse/>
+                <Ellipse/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Right"
+                        Margin="0,6,0,6">
+                <Ellipse/>
+                <Ellipse/>
+                <Ellipse/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Rectangle Width="24" Height="24" Fill="Gray"/>
+                <Path Fill="{StaticResource ButtonNotPressed}" Width="24" Height="24" Data="M 0,12 L24,0 L24,24 Z" Margin="8,0,8,0"/>
+                <Path Fill="{StaticResource ButtonNotPressed}" Width="24" Height="24" Data="M 0,0 L24,12 L0,24 Z"/>
+            </StackPanel>
+        </StackPanel>
+                
+        <!-- Top Bar -->
+        <ItemsControl Grid.Column="1"
+                      ItemsSource="{Binding Path=TopRowButtons}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource TopRowKBoardKey}"
+                            PreviewMouseDown="Button_MouseDown"
+                            PreviewMouseUp="Button_MouseUp"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Bottom Bar -->
+        <ItemsControl Grid.Column="1"
+                      Grid.Row="1"
+                      ItemsSource="{Binding Path=BottomRowButtons}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource BottomRowKBoardKey}"
+                            PreviewMouseDown="Button_MouseDown"
+                            PreviewMouseUp="Button_MouseUp"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

@@ -71,7 +71,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LaunchPadControlDotNetLibrary\LaunchPadControlDotNetLibrary.vcxproj">
+    <ProjectReference Include="..\KBoardControlDotNetLibrary\KBoardControlDotNetLibrary.vcxproj">
       <Project>{c9460dd6-6958-42ea-a5f7-bb1e80ae1775}</Project>
       <Name>LaunchPadControlDotNetLibrary</Name>
     </ProjectReference>

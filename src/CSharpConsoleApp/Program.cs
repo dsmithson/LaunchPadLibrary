@@ -9,29 +9,19 @@ namespace Knightware
 {
     class Program
     {
-        static LaunchPadDevice launchPad;
+        static KBoardDevice KBoard;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Starting Up...");
-            launchPad = new LaunchPadDevice();
-            if(!launchPad.Startup(launchPad_KeyPressed))
+            KBoard = new KBoardDevice();
+            if(!KBoard.Startup(KBoard_KeyPressed, KBoard_BendChanged))
             {
                 Console.WriteLine("Failed to startup");
                 return;
             }
             
-            Console.WriteLine("Writing Red to LaunchPad...");
-            SetColorForAllMainButtons(launchPad, LaunchPadColors.Red);
-            Thread.Sleep(1000);
-
-            Console.WriteLine("Writing Green to LaunchPad...");
-            SetColorForAllMainButtons(launchPad, LaunchPadColors.Green);
-            Thread.Sleep(1000);
-
-            SetColorForAllMainButtons(launchPad, LaunchPadColors.Off);
-
-            Console.WriteLine("Started.  Press any key on the launchpad, and press return to exit");
+            Console.WriteLine("Started.  Press any key on the KBoard, and press return to exit");
             Console.WriteLine();
 
             //TEST FOR gc ISSUES
@@ -47,34 +37,26 @@ namespace Knightware
             Console.ReadLine();
             Console.WriteLine("Shutting down...");
 
-            launchPad.Shutdown();
-            launchPad = null;
+            KBoard.Shutdown();
+            KBoard = null;
         }
 
-        static void SetColorForAllMainButtons(LaunchPadDevice launchPad, LaunchPadColor color)
-        {
-            for(int row = 0; row < 8; row++)
-            {
-                int rowOffset = 0x10 * row;
-                for(int column = 0; column < 8 ; column++)
-                {
-                    int keyId = rowOffset + column;
-                    launchPad.SetKeyColor(LaunchPadKeyType.MainArea, (byte)keyId, color);
-                }
-            }
-        }
-
-        static void launchPad_KeyPressed(object sender, LaunchPadKeyPressEventArgs e)
+        static void KBoard_KeyPressed(object sender, KBoardKeyPressEventArgs e)
         {
             //Note:  sender is null - haven't figure out how to get the reference into the even caller in c++/cli land
-            //var launchPad = (LaunchPadDevice)sender;
+            //var KBoard = (KBoardDevice)sender;
 
-            Console.WriteLine("Type: {0}\tKey ID: 0x{1:X2} ({1} Decimal)\t{2}", e.KeyType, e.KeyId, e.IsPressed ? "Pressed" : "Released");
-            
+            Console.WriteLine("Key ID: 0x{0:X2} ({0} Decimal)\t{1}", e.KeyId, e.IsPressed ? "Pressed" : "Released");
+
             if (e.IsPressed)
-                launchPad.SetKeyColor(e.KeyType, e.KeyId, LaunchPadColors.Yellow);
+                KBoard.SetKey(e.KeyId, 0xff);
             else
-                launchPad.ClearKeyColor(e.KeyType, e.KeyId);
+                KBoard.SetKey(e.KeyId, 0x00);
+        }
+
+        static void KBoard_BendChanged(object sender, KBoardBendChangedEventArgs e)
+        {
+            Console.WriteLine("Bend changed to {0:X2} ({0} Decimal)", e.BendValue);
         }
     }
 }
